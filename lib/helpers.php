@@ -14,4 +14,5 @@ function firsttheme_readmore_link() {
     echo '</a>';
 }
 
+
 ?>
