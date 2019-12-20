@@ -23,6 +23,10 @@
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/register": "^7.7.7",
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-if": "^3.0.0",
+    "gulp-sass": "^4.0.2",
+    "yargs": "^15.0.2"
   }
 }
