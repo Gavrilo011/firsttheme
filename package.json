@@ -31,6 +31,11 @@
     "gulp-imagemin": "^6.2.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "webpack-stream": "^5.2.1",
     "yargs": "^15.0.2"
+  },
+  "dependencies": {
+    "babel-loader": "^8.0.6"
   }
 }
