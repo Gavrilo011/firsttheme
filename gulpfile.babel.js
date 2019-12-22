@@ -1,4 +1,3 @@
-
 import gulp from 'gulp';
 import yargs from 'yargs';
 import sass from 'gulp-sass';
@@ -10,7 +9,9 @@ import del from 'del';
 import webpack from 'webpack-stream';
 import uglify  from 'gulp-uglify';
 import named from 'vinyl-named';
+import browserSync from 'browser-sync';
 
+const server = browserSync.create();
 const PRODUCTION = yargs.argv.prod;
 
 const paths = {
@@ -32,6 +33,18 @@ const paths = {
     }
 }
 
+export const serve = (done) => {
+    server.init({
+        proxy:"http://localhost/test/myfirsttheme/"
+    });
+    done();
+}
+
+export const reload = (done) => {
+    server.reload();
+    done();
+}
+
 export const clean = () =>  del(['dist']);
 
 export const styles = () => {
@@ -41,6 +54,7 @@ export const styles = () => {
     .pipe(gulpif(PRODUCTION, cleanCSS({compatibility: 'ie8'})))
     .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
     .pipe(gulp.dest(paths.styles.dest))
+    .pipe(server.stream());
 }
 
 export const images = () => {
@@ -51,9 +65,10 @@ export const images = () => {
 
 export const watch = () => {
     gulp.watch('src/assets/scss/**/*.scss', styles);
-    gulp.watch('src/assets/js/**/*.js', scripts);
-    gulp.watch(paths.images.src, images);
-    gulp.watch(paths.other.src, copy);
+    gulp.watch('src/assets/js/**/*.js', gulp.series(scripts, reload));
+    gulp.watch('**/*.php', reload);
+    gulp.watch(paths.images.src, gulp.series(images, reload));
+    gulp.watch(paths.other.src, gulp.series(copy, reload));
 }
 
 export const copy = () => {
@@ -91,7 +106,7 @@ export const scripts = () => {
         .pipe(gulp.dest(paths.scrips.dest));
 }
 
-export const dev = gulp.series(clean, gulp.parallel(styles, scripts, images, copy), watch);
+export const dev = gulp.series(clean, gulp.parallel(styles, scripts, images, copy), serve, watch);
 export const build = gulp.series(clean, gulp.parallel(styles, scripts, images, copy));
 
 export default dev;
