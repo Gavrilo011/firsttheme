@@ -41,7 +41,10 @@
     "yargs": "^15.0.2"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.0",
     "babel-loader": "^8.0.6",
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "normalize.css": "^8.0.1",
+    "slick-carousel": "^1.8.1"
   }
 }
