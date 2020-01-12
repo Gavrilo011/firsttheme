@@ -12,7 +12,11 @@
         <div class="c-header">
             <div class="o-container u-flex u-align-justify u-align-middle">
                 <div class="c-header__logo">
-                    <a class="c-header__blogname" href="<?php echo esc_url(home_url( '/' )) ?>"><?php esc_html(bloginfo( 'name' )); ?></a>
+                    <?php if(has_custom_logo()) {
+                        the_custom_logo();
+                    } else { ?>
+                        <a class="c-header__blogname" href="<?php echo esc_url(home_url( '/' )) ?>"><?php esc_html(bloginfo( 'name' )); ?></a>
+                    <?php } ?>
                 </div>
                 <?php get_search_form( true ); ?>
             </div>
