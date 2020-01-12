@@ -13,6 +13,28 @@ function _themename_customize_register( $wp_customize ) {
         }
     ));
 
+    /*################## GENERAL SETTINGS ########################*/
+
+    $wp_customize->add_section('_themename_general_options', array(
+        'title' => esc_html__( 'General Options', '_themename' ),
+        'description' => esc_html__( 'You can change footer options from here.', '_themename' )
+    ));
+
+    $wp_customize->add_setting('_themename_accent_colour', array(
+        'default' => '#20ddae',
+        'sanitize_callback' => 'sanitize_hex_color'
+    ));
+
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, '_themename_accent_colour', array(
+        'label' => __( 'Accent Color', '_themename' ),
+        'section' => '_themename_general_options',
+    )) );
+
+
+
+
+    /*################## FOOTER SETTINGS ########################*/
+
     $wp_customize->selective_refresh->add_partial('_themename_footer_partial', array(
         'settings' => array('_themename_footer_bg', '_themename_footer_layout'),
         'selector' => '#footer',
@@ -27,7 +49,7 @@ function _themename_customize_register( $wp_customize ) {
     // Add SECTION -> Footer Options
     $wp_customize->add_section('_themename_footer_options', array(
         'title' => esc_html__( 'Footer Options', '_themename' ),
-        'description' => esc_html__( 'You can change footer options from here.', '_themename' )
+        'description' => esc_html__( 'You can change general options from here.', '_themename' )
     ));
 
     // Add Info in SECTION -> Footer Options
@@ -82,6 +104,8 @@ function _themename_customize_register( $wp_customize ) {
 }
 
 add_action( 'customize_register', '_themename_customize_register' );
+
+
 
 
 function _themename_validate_footer_layout( $validity, $value) {
