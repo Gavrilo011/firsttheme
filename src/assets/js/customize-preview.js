@@ -7,6 +7,31 @@ wp.customize( 'blogname', (value) => {
     } )
 })
 
+wp.customize( '_themename_accent_colour', (value) => {
+    value.bind( (to) => {
+        $('#_themename-stylesheet-inline-css').html(
+            `
+                a {
+                    color: ${to};
+                }
+
+                :focus {
+                    outline: 2px solid ${to};
+                }
+
+                .c-post.sticky {
+                    border-left: 5px solid ${to};
+                }
+
+                button, input[type=submit],
+                .header-nav .menu > .menu-item:not(.mega) .sub-menu .menu-item:hover > a {
+                    background-color: ${to};
+                }
+            `
+        );
+    } )
+})
+
 wp.customize( '_themename_site_info', (value) => {
     value.bind( (to) => {
         $('.c-site-info__text').html(strip_tags(to, '<a>'));
