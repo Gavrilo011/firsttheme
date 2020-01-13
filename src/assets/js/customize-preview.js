@@ -7,28 +7,20 @@ wp.customize( 'blogname', (value) => {
     } )
 })
 
+
 wp.customize( '_themename_accent_colour', (value) => {
     value.bind( (to) => {
-        $('#_themename-stylesheet-inline-css').html(
-            `
-                a {
-                    color: ${to};
+        let inline_css = ``;
+        let inline_css_obj = _themename['inline-css'];
+         for(let selector in inline_css_obj) {
+            inline_css += `${selector} {`;
+                for(let prop in inline_css_obj[selector]) {
+                    let val = inline_css_obj[selector][prop];
+                    inline_css += `${prop}: ${wp.customize(val).get()}`;
                 }
-
-                :focus {
-                    outline: 2px solid ${to};
-                }
-
-                .c-post.sticky {
-                    border-left: 5px solid ${to};
-                }
-
-                button, input[type=submit],
-                .header-nav .menu > .menu-item:not(.mega) .sub-menu .menu-item:hover > a {
-                    background-color: ${to};
-                }
-            `
-        );
+            inline_css += `}`;
+        }
+        $('#_themename-stylesheet-inline-css').html(inline_css);
     } )
 })
 

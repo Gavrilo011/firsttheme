@@ -28,7 +28,7 @@ function _themename_customize_register( $wp_customize ) {
 
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, '_themename_accent_colour', array(
         'label' => __( 'Accent Color', '_themename' ),
-        'section' => '_themename_general_options',
+        'section' => '_themename_general_options'
     )) );
 
 
@@ -67,6 +67,7 @@ function _themename_customize_register( $wp_customize ) {
         'section' => '_themename_footer_options'
     ));
 
+    
 
     // Add Footer Background in SECTION -> Footer Options
     $wp_customize->add_setting('_themename_footer_bg', array(
